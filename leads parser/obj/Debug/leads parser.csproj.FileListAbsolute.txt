@@ -1,0 +1,10 @@
+C:\Users\thomas\Desktop\leads parser\leads parser\leads parser\bin\Debug\leads parser.exe.config
+C:\Users\thomas\Desktop\leads parser\leads parser\leads parser\bin\Debug\leads parser.exe
+C:\Users\thomas\Desktop\leads parser\leads parser\leads parser\bin\Debug\leads parser.pdb
+C:\Users\thomas\Desktop\leads parser\leads parser\leads parser\bin\Debug\GenericParsing.dll
+C:\Users\thomas\Desktop\leads parser\leads parser\leads parser\obj\Debug\leads parser.csprojResolveAssemblyReference.cache
+C:\Users\thomas\Desktop\leads parser\leads parser\leads parser\obj\Debug\leads_parser.Properties.Resources.resources
+C:\Users\thomas\Desktop\leads parser\leads parser\leads parser\obj\Debug\leads parser.csproj.GenerateResource.Cache
+C:\Users\thomas\Desktop\leads parser\leads parser\leads parser\obj\Debug\leads parser.exe
+C:\Users\thomas\Desktop\leads parser\leads parser\leads parser\obj\Debug\leads parser.pdb
+C:\Users\thomas\Desktop\leads parser\leads parser\leads parser\obj\Debug\leads_parser.MainForm.resources
