@@ -21,7 +21,7 @@ namespace leads_parser
 
         }
 
-        public void send_emails(string path, string file, string recipient_list)
+        public void send_emails(string path, string file, string recipient_list, string site_name)
         {
             string file_contents = "";
             try
@@ -49,8 +49,8 @@ namespace leads_parser
                     .UseSSL()
                     .UsingClient(client)
                     .To(recipient_list)
-                    .Subject("Leads from Thomson Safaris - no leads today")
-                    .Body("There were no leads from the Thomson Safaris website today - if this is unexpected, please contact the site administrator.")
+                    .Subject("Leads from " + site_name + " - no leads today")
+                    .Body("There were no leads from the " + site_name + " today - if this is unexpected, please contact the site administrator.")
                     .Send();
             }
             else
@@ -62,7 +62,7 @@ namespace leads_parser
                     .UseSSL()
                     .UsingClient(client)
                     .To(recipient_list)
-                    .Subject("Here is " + file + " from Thomson Safaris")
+                    .Subject(file + " from " + site_name)
                     .Body(file_contents)
                     .Attach(leads)
                     .Send();
@@ -81,7 +81,7 @@ namespace leads_parser
                 .UseSSL()
                 .UsingClient(client)
                 .To("tom@thomsonsafaris.com")
-                .Subject("Here is today's raw leads data file")
+                .Subject("Raw leads data file")
                 .Body("See attached")
                 .Attach(leads)
                 .Send();

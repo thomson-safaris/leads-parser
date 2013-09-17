@@ -42,9 +42,11 @@ namespace leads_parser
                             table = parser.GetDataTable();
 
                             // send the original data file to me for troubleshooting
-                            Emailer em = new Emailer();
-                            em.send_original_data_file(ofd.FileName);
-
+                            if (!MainForm.debug)
+                            {
+                                Emailer em = new Emailer();
+                                em.send_original_data_file(ofd.FileName);
+                            }
                         }
                     }
                 }
