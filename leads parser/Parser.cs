@@ -104,6 +104,7 @@ namespace leads_parser
                 r["Interests"] = interests_concatenated;
 
                 // clean text fields
+                // DataRows do not enjoy being handled directly, hence the strange code below
                 if (r["Questions and Comments"].ToString() != "")
                 {
                     string temp_custom_response = r["Questions and Comments"].ToString();
@@ -118,7 +119,9 @@ namespace leads_parser
                     r["Phone Consult Notes"] = temp_custom_response;
                 }
 
-                r["Country"] = CountryAbbrToFull(r["Country"].ToString());
+                string temp_country = r["Country"].ToString();
+                temp_country = CountryAbbrToFull(temp_country);
+                r["Country"] = temp_country;
 
                 // fix typos
                 if (r["How Did You First Hear About Us?"].ToString() == "AMEX Centurio") { r["How Did You First Hear About Us?"] = "AMEX Centurion"; }
@@ -537,8 +540,6 @@ namespace leads_parser
 	                return "St. Pierre And Miquelon";
                 case "SD":
 	                return "Sudan";
-                case "SR":
-	                return "Suriname";
                 case "SJ":
 	                return "Svalbard And Jan Mayen Islands";
                 case "SZ":

@@ -76,18 +76,22 @@ namespace leads_parser
         {
             foreach (DataRow r in table.Rows)
             {
-                if ((r["Country"].ToString() != "US") && (r["Country"].ToString() != "United States") && (r["Country"].ToString() != "Canada"))
+                if ((r["Country"].ToString() != "US") && (r["Country"].ToString() != "United States") && (r["Country"].ToString() != "Canada") && (r["Country"].ToString() != "CA"))
                 {
                     international_table.ImportRow(r);
                     // note that this could be any text at all
                     // ie this is not checking data validity
                     Console.WriteLine("imported international");
                 }
-                else if ((r["Country"].ToString() == "US") || (r["Country"].ToString() == "United States") || (r["Country"].ToString() == "Canada"))
+                else if ((r["Country"].ToString() == "US") || (r["Country"].ToString() == "United States") || (r["Country"].ToString() == "Canada") || (r["Country"].ToString() == "CA"))
                 {
                     if (r["Country"].ToString() == "US")
                     {
                         r["Country"] = "United States";
+                    }
+                    if (r["Country"].ToString() == "CA")
+                    {
+                        r["Country"] = "Canada";
                     }
                     north_american_table.ImportRow(r);
                     Console.WriteLine("imported north american");
