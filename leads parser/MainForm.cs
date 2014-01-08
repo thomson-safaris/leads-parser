@@ -24,14 +24,18 @@ namespace leads_parser
         public const string SAFARI_US_FILE = "north_american_leads.csv";
         public const string KILI_INTL_FILE = "kili_nd_leads.txt";
         public const string KILI_US_FILE = "kili_north_american_leads.tab";
-        private string international_recipient_list = ""; // specified in external file
-        private string north_american_recipient_list = ""; // specified in external file
+        private static string international_recipient_list = ""; // specified in external file
+        private static string north_american_recipient_list = ""; // specified in external file
+
         private DataTable table = new DataTable();
         private DataTable international_table = new DataTable();
         private DataTable north_american_table = new DataTable();
 
         /// Debug flag for sending emails! Set to false for final testing & production.
         public static bool debug = false;
+
+        // Flag for whether there was no imported file or the imported file has no contents
+        public static bool importFileSelected = false;
 
         public MainForm()
         {
@@ -42,6 +46,16 @@ namespace leads_parser
             treksLeadsButton.Click += new System.EventHandler(parse_treks_leads);
 
         }   /// End of main section
+
+        public static string get_international_recipient_list()
+        {
+            return international_recipient_list;
+        }
+        
+        public static string get_north_american_recipient_list()
+        {
+            return north_american_recipient_list;
+        }
 
         private void InitializeTheAwesome()
         {
@@ -59,12 +73,30 @@ namespace leads_parser
             return true;
         }
 
-        private bool ImportLeads()
+        private bool ImportLeads(string lead_type)
         {
             table = importer.getCSVImport();
-            if (table.Rows.Count == 0)
+            if (!importFileSelected)
             {
                 parser_completion_status_box.Text = "No file selected.";
+                return false;
+            }
+            else if (table.Rows.Count == 0)
+            {
+                // This will notify people as appropriate that there were no leads
+                Emailer em = new Emailer();
+                if (lead_type == "safaris")
+                {
+                    em.send_emails("", "", MainForm.get_north_american_recipient_list(), "thomsonsafaris.com");
+                    em.send_emails("", "", MainForm.get_international_recipient_list(), "thomsonsafaris.com");
+                }
+                else
+                {
+                    em.send_emails("", "", MainForm.get_north_american_recipient_list(), "thomsontreks.com");
+                    em.send_emails("", "", MainForm.get_international_recipient_list(), "thomsontreks.com");
+                }
+                parser_completion_status_box.Text = "Parsing complete--no leads today from the " + lead_type + " site.";
+                
                 return false;
             }
             international_table = table.Clone();
@@ -104,7 +136,7 @@ namespace leads_parser
             string site_name;
 
             if (!CheckRecipientLists()) return;
-            if (!ImportLeads()) return;
+            if (!ImportLeads(lead_type)) return;
 
             SplitBasedOnCountry();
 

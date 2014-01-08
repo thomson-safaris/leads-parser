@@ -50,7 +50,7 @@ namespace leads_parser
                     .UsingClient(client)
                     .To(recipient_list)
                     .Subject("Leads from " + site_name + " - no leads today")
-                    .Body("There were no leads from the " + site_name + " today - if this is unexpected, please contact the site administrator.")
+                    .Body("There were no leads from the " + site_name + " website today - if this is unexpected, please contact the site administrator.")
                     .Send();
             }
             else

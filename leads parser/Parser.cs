@@ -92,39 +92,34 @@ namespace leads_parser
 
             table.Columns.Add("Interests", typeof(String));
 
+            table.Columns.Add("Phone Consult Notes", typeof(String));
+
+
             foreach (DataRow r in table.Rows)
             {
                 //assign interests
                 interests_concatenated = "";
+                interests_concatenated += adder("Kili Treks");
                 first = true;
-                if (r["Kilimanjaro Trek"].ToString() == "checked") { interests_concatenated += adder("Kili Treks"); }
-                if (r["Kilimanjaro Trek and Safari"].ToString() == "checked") { interests_concatenated += adder("Kili Safaris"); }
-                if (r["Private Trek"].ToString() == "checked") { interests_concatenated += adder("Private Kili"); }
-                if (r["Private Trek and Safari"].ToString() == "checked") { interests_concatenated += adder("Private Kili"); }
-                r["Interests"] = interests_concatenated;
+                //if (r["Kilimanjaro Trek"].ToString() == "checked") { interests_concatenated += adder("Kili Treks"); }
+                //if (r["Kilimanjaro Trek and Safari"].ToString() == "checked") { interests_concatenated += adder("Kili Safaris"); }
+                //if (r["Private Trek"].ToString() == "checked") { interests_concatenated += adder("Private Kili"); }
+                //if (r["Private Trek and Safari"].ToString() == "checked") { interests_concatenated += adder("Private Kili"); }
+                //r["Interests"] = interests_concatenated;
 
                 // clean text fields
                 // DataRows do not enjoy being handled directly, hence the strange code below
-                if (r["Questions and Comments"].ToString() != "")
-                {
-                    string temp_custom_response = r["Questions and Comments"].ToString();
-                    temp_custom_response = text_field_cleaner(temp_custom_response);
-                    r["Questions and Comments"] = temp_custom_response;
-                }
-
+                // Different field name with new gravity form field
+                r["Phone Consult Notes"] = r["Would you like a free phone consultation to discuss your trip details?"].ToString();
                 if (r["Phone Consult Notes"].ToString() != "")
                 {
                     string temp_custom_response = r["Phone Consult Notes"].ToString();
                     temp_custom_response = text_field_cleaner(temp_custom_response);
                     r["Phone Consult Notes"] = temp_custom_response;
                 }
-
                 string temp_country = r["Country"].ToString();
                 temp_country = CountryAbbrToFull(temp_country);
                 r["Country"] = temp_country;
-
-                // fix typos
-                if (r["How Did You First Hear About Us?"].ToString() == "AMEX Centurio") { r["How Did You First Hear About Us?"] = "AMEX Centurion"; }
             }
 
             return table;
@@ -736,24 +731,19 @@ namespace leads_parser
             string interests_concatenated;
 
             table.Columns.Add("Interests", typeof(String));
+            table.Columns.Add("Phone Consult Notes", typeof(String));
 
             foreach (DataRow r in table.Rows)
             {
                 //assign interests
                 interests_concatenated = "";
+                interests_concatenated += adder("Kili Treks");
                 first = true;
-                if (r["Kilimanjaro Trek"].ToString() == "checked") { interests_concatenated += adder("Kili Treks"); }
-                if (r["Kilimanjaro Trek and Safari"].ToString() == "checked") { interests_concatenated += adder("Kili Safaris"); }
-                if (r["Private Trek"].ToString() == "checked") { interests_concatenated += adder("Private Kili"); }
-                if (r["Private Trek and Safari"].ToString() == "checked") { interests_concatenated += adder("Private Kili"); }
+                //if (r["Kilimanjaro Trek"].ToString() == "checked") { interests_concatenated += adder("Kili Treks"); }
+                //if (r["Kilimanjaro Trek and Safari"].ToString() == "checked") { interests_concatenated += adder("Kili Safaris"); }
+                //if (r["Private Trek"].ToString() == "checked") { interests_concatenated += adder("Private Kili"); }
+                //if (r["Private Trek and Safari"].ToString() == "checked") { interests_concatenated += adder("Private Kili"); }
                 r["Interests"] = interests_concatenated;
-
-                //interests_concatenated = "";
-                //if (r["Kilimanjaro Trek"].ToString() == "checked") { interests_concatenated += "Kili Treks" + interests_divider; } else interests_concatenated += interests_divider;
-                //if (r["Kilimanjaro Trek and Safari"].ToString() == "checked") { interests_concatenated += "Kili Safaris" + interests_divider; } else interests_concatenated += interests_divider;
-                //if (r["Private Trek"].ToString() == "checked") { interests_concatenated += "Private Kili" + interests_divider; } else interests_concatenated += interests_divider;
-                //if (r["Private Trek and Safari"].ToString() == "checked") { interests_concatenated += "Private Kili"; }
-                //r["Interests"] = interests_concatenated;
 
                 if (r["Country"].ToString() == "United States") { r["Country"] = ""; }
 
@@ -761,28 +751,20 @@ namespace leads_parser
                 if (r["Address 1"].ToString() == "Address 1") { r["Address 1"] = ""; }
                 if (r["Address 2"].ToString() == "Address 2") { r["Address 2"] = ""; }
                 if (r["City"].ToString() == "City") { r["City"] = ""; }
-                if (r["Zip / Post Code"].ToString() == "Zip / Post Code") { r["Zip / Post Code"] = ""; }
+                if (r["Zip/Postal Code"].ToString() == "Zip/Postal Code") { r["Zip/Postal Code"] = ""; }
                 if (r["Day Phone"].ToString() == "Day Phone") { r["Day Phone"] = ""; }
 
-                // clean text fields
-                if (r["Questions and Comments"].ToString() != "")
-                {
-                    string temp_custom_response = r["Questions and Comments"].ToString();
-                    temp_custom_response = text_field_cleaner_US(temp_custom_response);
-                    r["Questions and Comments"] = temp_custom_response;
-                }
+                // Different field name with new gravity form field
+                r["Phone Consult Notes"] = r["Would you like a free phone consultation to discuss your trip details?"].ToString();
 
+                // clean text fields
                 if (r["Phone Consult Notes"].ToString() != "")
                 {
                     string temp_custom_response = r["Phone Consult Notes"].ToString();
                     temp_custom_response = text_field_cleaner_US(temp_custom_response);
                     r["Phone Consult Notes"] = temp_custom_response;
                 }
-
-                // fix typos
-                if (r["How Did You First Hear About Us?"].ToString() == "AMEX Centurio") { r["How Did You First Hear About Us?"] = "AMEX Centurion"; }
             }
-
             return table;
         }
 

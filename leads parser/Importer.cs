@@ -47,6 +47,7 @@ namespace leads_parser
                                 Emailer em = new Emailer();
                                 em.send_original_data_file(ofd.FileName);
                             }
+                            MainForm.importFileSelected = true;
                         }
                     }
                 }

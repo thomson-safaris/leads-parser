@@ -68,6 +68,8 @@ namespace leads_parser
                 sb.Append("\",\""); // blank column....
                 sb.Append(comma_wrap_in_quotes(r["Interests"].ToString()));
                 sb.Append(comma_wrap_in_quotes(r["Catalog Preference"].ToString()));
+                // add UUID
+                //sb.Append(comma_wrap_in_quotes(r["get_by"].ToString())); // This is the UUID
                 sb.Append("\"\r\n");
             }
             return sb;
@@ -85,14 +87,15 @@ namespace leads_parser
                 sb.Append(tab_wrap_in_quotes(r["Day Phone"].ToString()));               // 4. Home phone
                 sb.Append(tab_wrap_in_quotes(r["Address 2"].ToString()));               // 5. Address 2
                 sb.Append(tab_wrap_in_quotes(r["City"].ToString()));                    // 6. City
-                sb.Append(tab_wrap_in_quotes(r["State"].ToString()));                   // 7. State
-                sb.Append(tab_wrap_in_quotes(r["Zip / Post Code"].ToString()));         // 8. ZIP
+                sb.Append(tab_wrap_in_quotes(r["State/Province"].ToString()));                   // 7. State
+                sb.Append(tab_wrap_in_quotes(r["Zip/Postal Code"].ToString()));         // 8. ZIP
                 sb.Append(tab_wrap_in_quotes(r["Country"].ToString()));                 // 9. Country
-                sb.Append(tab_wrap_in_quotes(r["How Did You First Hear About Us?"].ToString())); // 10. SourceCode
+                sb.Append(tab_wrap_in_quotes(r["How did you first hear about us?"].ToString())); // 10. SourceCode
                 sb.Append("\t");                                                    // 11. blank column - OptIn
                 sb.Append(tab_wrap_in_quotes(r["Interests"].ToString()));               // 12. TourInfo
                 sb.Append(tab_wrap_in_quotes(r["My Group"].ToString()));                // 13. ClientType
-                sb.Append(tab_wrap_in_quotes(r["Questions and Comments"].ToString()));  // 14. Comments
+                //sb.Append(tab_wrap_in_quotes(r["Questions and Comments"].ToString()));  // 14. Comments
+                sb.Append("\t");                                                    // 14. no longer separate comments area
                 sb.Append(tab_wrap_in_quotes(r["Email"].ToString()));                   // 15. Email
                 sb.Append(tab_wrap_in_quotes(r["Group Size"].ToString()));              // 16. Travelers
                 sb.Append("\t");                                                    // 17. blank column - Travel Month
@@ -117,8 +120,8 @@ namespace leads_parser
                 sb.Append(r["Group Size"].ToString() + "\t");
                 sb.Append(r["Interests"].ToString() + "\t");
                 sb.Append(r["My Group"].ToString() + "\t");                 // client type
-                sb.Append(r["How Did You First Hear About Us?"].ToString() + "\t"); // source code
-                sb.Append(r["Questions and Comments"].ToString() + "\r\n"); // comments
+                sb.Append(r["How did you first hear about us?"].ToString() + "\t"); // source code
+                sb.Append(r["Phone Consult Notes"].ToString() + "\r\n"); // comments
             }
             return sb;
         }
