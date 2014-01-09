@@ -68,6 +68,15 @@ namespace leads_parser
                 sb.Append("\",\""); // blank column....
                 sb.Append(comma_wrap_in_quotes(r["Interests"].ToString()));
                 sb.Append(comma_wrap_in_quotes(r["Catalog Preference"].ToString()));
+                // Add the Adwords fields
+                sb.Append(comma_wrap_in_quotes(r["source"].ToString()));
+                sb.Append(comma_wrap_in_quotes(r["medium"].ToString()));
+                sb.Append(comma_wrap_in_quotes(r["network"].ToString()));
+                sb.Append(comma_wrap_in_quotes(r["campaign"].ToString()));
+                sb.Append(comma_wrap_in_quotes(r["keyword"].ToString()));
+                sb.Append(comma_wrap_in_quotes(r["content"].ToString()));
+                sb.Append(comma_wrap_in_quotes(r["device"].ToString()));
+                sb.Append(comma_wrap_in_quotes(r["placement"].ToString()));
                 // add UUID
                 //sb.Append(comma_wrap_in_quotes(r["get_by"].ToString())); // This is the UUID
                 sb.Append("\"\r\n");
@@ -101,7 +110,16 @@ namespace leads_parser
                 sb.Append("\t");                                                    // 17. blank column - Travel Month
                 sb.Append(tab_wrap_in_quotes(r["Travel Year"].ToString()));             // 18. Travel Year
                 sb.Append(tab_wrap_in_quotes(r["Phone Consult Notes"].ToString()));     // 19. Consultation
-                sb.Append("Kilimanjaro Treks");
+                sb.Append(tab_wrap_in_quotes("Kilimanjaro Treks"));
+                sb.Append(tab_wrap_in_quotes(r["Source"].ToString()));
+                sb.Append(tab_wrap_in_quotes(r["Medium"].ToString()));
+                sb.Append(tab_wrap_in_quotes(r["Network"].ToString()));
+                sb.Append(tab_wrap_in_quotes(r["Campaign"].ToString()));
+                sb.Append(tab_wrap_in_quotes(r["Keyword"].ToString()));
+                sb.Append(tab_wrap_in_quotes(r["Content"].ToString()));
+                sb.Append(tab_wrap_in_quotes(r["Device"].ToString()));
+                sb.Append(r["Placement"].ToString());
+                // Last one does not need a \t
                 sb.Append("\n");
             }
             return sb;

@@ -45,6 +45,63 @@ namespace leads_parser
         }
 
         /// <summary>
+        ///     Method to remove the unused adwords columns from the datafile
+        /// </summary>
+        /// <param name="table"></param>
+        /// <returns></returns>
+        public DataTable remove_adwords_columns(DataTable table)
+        {
+            // Handle Adwords fields with weird names
+            if (table.Columns.Contains("ad_source"))
+            {
+                table.Columns.Remove("ad_source");
+            }
+            if (table.Columns.Contains("ad_medium"))
+            {
+                table.Columns.Remove("ad_medium");
+            }
+            if (table.Columns.Contains("ad_network"))
+            {
+                table.Columns.Remove("ad_network");
+            }
+            if (table.Columns.Contains("ad_campaign"))
+            {
+                table.Columns.Remove("ad_campaign");
+            }
+            if (table.Columns.Contains("ad_keyword"))
+            {
+                table.Columns.Remove("ad_keyword");
+            }
+            if (table.Columns.Contains("ad_content"))
+            {
+                table.Columns.Remove("ad_content");
+            }
+            if (table.Columns.Contains("ad_device"))
+            {
+                table.Columns.Remove("ad_device");
+            }
+            if (table.Columns.Contains("ad_placement"))
+            {
+                table.Columns.Remove("ad_placement");
+            }
+
+            return table;
+        }
+
+        private DataTable add_adwords_columns(DataTable table)
+        {
+            table.Columns.Add("source", typeof(String));
+            table.Columns.Add("medium", typeof(String));
+            table.Columns.Add("network", typeof(String));
+            table.Columns.Add("campaign", typeof(String));
+            table.Columns.Add("keyword", typeof(String));
+            table.Columns.Add("content", typeof(String));
+            table.Columns.Add("device", typeof(String));
+            table.Columns.Add("placement", typeof(String));
+            return table;
+        }
+
+        /// <summary>
         /// Parses the international leads
         /// </summary>
         /// <param name="table"></param>
@@ -55,8 +112,6 @@ namespace leads_parser
             string interests_concatenated;
 
             table.Columns.Add("Interests", typeof(String));
-
-
 
             foreach (DataRow r in table.Rows)
             {
@@ -671,7 +726,9 @@ namespace leads_parser
             table.Columns.Add("Catalog Preference", typeof(String));
             table.Columns.Add("Confirm Email", typeof(String));
 
-
+            // Add Adwords fields
+            add_adwords_columns(table);
+            
             foreach (DataRow r in table.Rows)
             {
                 //assign interests
@@ -705,6 +762,16 @@ namespace leads_parser
 
                 r["Confirm Email"] = r["Email"].ToString(); // duplicating this :(
 
+                // Convert adwords fields
+                r["source"] = r["ad_source"];
+                r["medium"] = r["ad_medium"];
+                r["network"] = r["ad_network"];
+                r["campaign"] = r["ad_campaign"];
+                r["keyword"] = r["ad_keyword"];
+                r["content"] = r["ad_content"];
+                r["device"] = r["ad_device"];
+                r["placement"] = r["ad_placement"];
+
                 // clean text fields
                 if (r["If other, please specify"].ToString() == "If other, please specify") { r["If other, please specify"] = ""; }
 
@@ -721,6 +788,7 @@ namespace leads_parser
 
 
             remove_columns(table);
+            remove_adwords_columns(table);
 
 
             return table;
@@ -732,6 +800,8 @@ namespace leads_parser
 
             table.Columns.Add("Interests", typeof(String));
             table.Columns.Add("Phone Consult Notes", typeof(String));
+            // Add Adwords fields
+            //add_adwords_columns(table);
 
             foreach (DataRow r in table.Rows)
             {
@@ -765,6 +835,8 @@ namespace leads_parser
                     r["Phone Consult Notes"] = temp_custom_response;
                 }
             }
+
+            //remove_adwords_columns(table);
             return table;
         }
 
