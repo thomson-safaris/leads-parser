@@ -762,15 +762,41 @@ namespace leads_parser
 
                 r["Confirm Email"] = r["Email"].ToString(); // duplicating this :(
 
+
                 // Convert adwords fields
-                r["source"] = r["ad_source"];
-                r["medium"] = r["ad_medium"];
-                r["network"] = r["ad_network"];
-                r["campaign"] = r["ad_campaign"];
-                r["keyword"] = r["ad_keyword"];
-                r["content"] = r["ad_content"];
-                r["device"] = r["ad_device"];
-                r["placement"] = r["ad_placement"];
+                if (table.Columns.Contains("ad_source"))
+                {
+                    r["source"] = r["ad_source"];
+                }
+                if (table.Columns.Contains("ad_medium"))
+                {
+                    r["medium"] = r["ad_medium"];
+                }
+                if (table.Columns.Contains("ad_network"))
+                {
+                    r["network"] = r["ad_network"];
+                }
+                if (table.Columns.Contains("ad_campaign"))
+                {
+                    r["campaign"] = r["ad_campaign"];
+                }
+                if (table.Columns.Contains("ad_keyword"))
+                {
+                    r["keyword"] = r["ad_keyword"];
+                }
+                if (table.Columns.Contains("ad_content"))
+                {
+                    r["content"] = r["ad_content"];
+                }
+                if (table.Columns.Contains("ad_device"))
+                {
+                    r["device"] = r["ad_device"];
+                }
+                if (table.Columns.Contains("ad_placement"))
+                {
+                    r["placement"] = r["ad_placement"];
+                }
+
 
                 // clean text fields
                 if (r["If other, please specify"].ToString() == "If other, please specify") { r["If other, please specify"] = ""; }
